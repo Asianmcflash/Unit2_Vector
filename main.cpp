@@ -14,7 +14,11 @@ create a single main.cpp that contains code samples and implementations of each 
 #include <set>
 #include <utility>
 #include <map>
+#include <algorithm>
 using namespace std; 
+
+typedef map<string, int> MapT;
+typedef MapT::const_iterator MapIterT;
 
 //Credit https://www.geeksforgeeks.org/passing-vector-constructor-c/ clarifications added
 class MyClassVector1 
@@ -35,6 +39,10 @@ class MyClassVector1
           }    
       } 
 };
+bool less_than_7(int value)
+    {
+      return value < 7;
+    }
 
 int main() 
 {
@@ -117,21 +125,23 @@ int main()
     {
       cout << " " << *it;
     }
+    cout << endl;
 
     /****Section_Name*** Stack*/
     stack<int> st;
-    st.push(100);           //push number on the stack
-    assert(st.size() == 1); //verify one element is on the stack
-    assert(st.top() == 100);// verify element value
-    st.top() = 456;         // assign new value
+    st.push(100);
+    assert(st.size() == 1);
+    assert(st.top() == 100);
+    st.top() = 456;
     assert(st.top() == 456);
-    st.pop();               // remove element
+    st.pop();
     assert(st.empty() == true);
 
     //Write comments that help one better understand what the code is doing.
 
     /****Section_Name**** Set*/
     //Write the code as presented in: 3. std::set
+    cout << endl;
     set<int> iset; //set of unique integer numbers
     iset.insert(11); // populate set with some values
     iset.insert(-11);
@@ -143,15 +153,16 @@ int main()
       iset.insert(55);
     }
     assert(iset.size() == 4); // sanity check
-    set<int>::iterator itz;
-    for(itz = iset.begin(); itz != iset.end(); it++)
+    set<int>::iterator itf;
+    for(itf = iset.begin(); itf != iset.end(); itf++)
     {
-      cout << " " << *it;
+      cout << " " << *itf;
     }
     //Write comments that help one better understand what the code is doing.
 
     /****Section_Name****Pair_Structure*/
-    //Write the code as presented in: 4. std::pair structure
+    //Write the code as presented in: 4. std::pair structure\
+    cout << endl;
     pair<string, string> strstr;
     strstr.first = "Hello";
     strstr.second = "World";
@@ -167,22 +178,55 @@ int main()
 
     /****Section_Name**** Map_Insert*/
     //Write the code as presented in: 14. std::map::insert
-    
+    MapT amap;
+    pair<MapIterT, bool> result = amap.insert(make_pair("Vincent", 45));
+    assert(result.second == true);
+    assert(result.first->second == 45);
+    result =amap.insert(make_pair("Vincent", 54));
+
+    //Vincent was already in the map, and result.first
+    //simply points there now:
+    assert(result.second == false);
+    assert(result.first->second == 45);
+
     //Write comments that help one better understand what the code is doing.
 
     /****Section_Name****Map_Summary*/
     //Write the code as presented in: 16. Map summary
+    map<string, string> phone_book;
+    phone_book["411"] = "Directory";
+    phone_book["911"] = "Emergency";
+    phone_book["508-678-2811"] = "BCC";
+    if(phone_book.find("411") != phone_book.end())
+    {
+      phone_book.insert(make_pair(string("411"), string("Directory")));
+    }
+    assert(phone_book.size() == 3);
+    map<string, string>::const_iterator ita;
+    for(ita = phone_book.begin(); ita != phone_book.end(); ++ita)
+    {
+      cout << " " << ita->first << " " << ita->second << endl;
+    }
+    /* Output:
+    411 Directory
+    508-678-2811 BCC
+    911 Emergency
+    */
 
     //Write comments that help one better understand what the code is doing.
 
     /****Section_Name**** Sort_Algorithm*/
     //Write the code as presented in: 23. sort example
-
+    int arr[10];
+    sort(arr, arr + 10);
+    vector<int> v1;
+    sort(v1.begin(), v1.end());
     //Write comments that help one better understand what the code is doing.
 
     /****Section_Name****Predicate_Algorithm*/
     //Write the code as presented in: 25. count_if and predicate function
-
+    vector<int> v2;
+    int count_less = std::count_if(v2.begin(), v2.end(), less_than_7);
     //Write comments that help one better understand what the code is doing. 
 
       return 0; 
