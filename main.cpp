@@ -1,5 +1,9 @@
 //Dr_T Unit 2 COSC-1437 Starter 
 /* Task -
+April 9, 2021
+Dr. T - Tarrant County College
+Create vectors and output to screen
+Learned how to control vectors and display only certain numbers and organize them
 
 Top level solution folder: C_STL_Library_Hong
 
